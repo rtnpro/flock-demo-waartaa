@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Waartaa</title>
+    <link rel="stylesheet" type="text/css" href="static/css/style.css">
+  </head>
+  <body>
+    <!-- Mixins-->
+    <!-- Pen Title-->
+    <div class="pen-title">
+      <h1>Waartaa</h1>
+      <img class="logo" src="static/images/logo.png">
+    </div>
+    <div class="container">
+      <div class="card"></div>
+      <div class="card">
+        <h1 class="title">Add Network</h1>
+        <form method="POST">
+          <div class="input-container">
+            {{ form.network }}
+            <label for="Network Name">Network Name</label>
+            <div class="bar"></div>
+          </div>
+          <div class="input-container">
+            {{ form.hostname }}
+            <label for="Password">Hostname</label>
+            <div class="bar"></div>
+          </div>
+          <div class="input-container">
+            {{ form.port }}
+            <label for="Password">Port</label>
+            <div class="bar"></div>
+          </div>
+          <div class="input-container">
+            {{ form.nick }}
+            <label for="Password">Nickname</label>
+            <div class="bar"></div>
+          </div>
+          <div class="button-container">
+            <button><span>Connect</span></button>
+          </div>
+        </form>
+        {% if error %}
+          <p class="error">Oops! You seem to have a bad memory</p>
+        {% endif %}
+      </div>
+    </div>
+    <!-- Portfolio--><a id="portfolio" href="http://andytran.me/" title="View my portfolio!"><i class="fa fa-link"></i></a>
+    <!-- CodePen--><a id="codepen" href="http://codepen.io/andytran/" title="Follow me!"><i class="fa fa-codepen"></i></a>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="static/js/scripts.js"></script>
+  </body>
+</html>
