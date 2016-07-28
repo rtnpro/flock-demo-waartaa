@@ -1,0 +1,3 @@
+[submodule "lounge"]
+	path = lounge
+	url = https://github.com/rtnpro/lounge
