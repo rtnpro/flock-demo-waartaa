@@ -112,7 +112,7 @@ def register():
         db.add(user)
         db.commit()
 
-        subprocess.call([conf.LOUNGE_BINARY, user, password])
+        subprocess.call([conf.LOUNGE_BINARY, user.username, password])
 
         if user and user.authenticate(password):
             login_user(user)
