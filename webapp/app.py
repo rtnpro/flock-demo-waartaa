@@ -5,7 +5,7 @@ from ircb.models.user import User
 from ircb.models.network import Network
 from ircb.models.lib import get_session
 
-from forms import LoginForm, NetworkForm
+from forms import LoginForm, NetworkForm, RegisterForm
 from session import RedisSessionInterface
 
 from functools import wraps
@@ -60,6 +60,7 @@ def index():
     if g.user.is_authenticated:
         return redirect(url_for('add_network'))
     form = LoginForm(request.form)
+    rform = RegisterForm(request.form)
     if request.method == 'POST' and form.validate():
         username = request.form.get('username')
         password = request.form.get('password')
@@ -67,7 +68,7 @@ def index():
         if user and user.authenticate(password):
             login_user(user)
             return redirect(url_for('add_network'))
-    return render_template('index.html', form=form)
+    return render_template('index.html', form=form, rform=rform)
 
 
 @app.route('/add-network', methods=['GET', 'POST'])
@@ -92,6 +93,23 @@ def add_network():
         db.commit()
         return 'Done creating network'
     return render_template('network.html', form=form)
+
+
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    form = RegisterForm(request.form)
+    if request.method == 'POST' and form.validate():
+        username = request.form.get('username')
+        email = request.form.get('email')
+        password = request.form.get('password')
+
+        user = User(username=username, email=email, password=password)
+        db.add(user)
+        db.commit()
+
+        if user and user.authenticate(password):
+            login_user(user)
+            return redirect(url_for('add_network'))
 
 
 # somewhere to logout
