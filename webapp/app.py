@@ -30,6 +30,7 @@ def login_required(func):
 def login_user(user):
     session['is_authenticated'] = True
     session['user_id'] = user.id
+    session['username'] = user.username
     g.user = user
 
 
