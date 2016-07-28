@@ -1,3 +1,5 @@
+import subprocess
+
 from flask import Flask, render_template, request, url_for, redirect, Response
 from flask import session, g
 
@@ -10,6 +12,8 @@ from session import RedisSessionInterface
 
 from functools import wraps
 import uuid
+
+import conf
 
 app = Flask(__name__)
 app.session_interface = RedisSessionInterface()
@@ -107,6 +111,8 @@ def register():
         user = User(username=username, email=email, password=password)
         db.add(user)
         db.commit()
+
+        subprocess.call([conf.LOUNGE_BINARY, user, password])
 
         if user and user.authenticate(password):
             login_user(user)

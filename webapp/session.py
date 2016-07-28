@@ -9,6 +9,8 @@ from hashlib import sha512
 
 import hmac
 
+import conf
+
 
 class RedisSession(CallbackDict, SessionMixin):
 
@@ -51,7 +53,7 @@ class RedisSessionInterface(SessionInterface):
         return self.session_class(sid=sid, new=True)
 
     def get_cookie_domain(self, app):
-        return ".waartaa.com"
+        return conf.SESSION_COOKIE_DOMAIN
 
     def save_session(self, app, session, response):
         domain = self.get_cookie_domain(app)
