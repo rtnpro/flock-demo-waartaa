@@ -128,4 +128,6 @@ def logout():
 
 
 if __name__ == '__main__':
+    from ircb.models import create_tables
+    create_tables()
     app.run(debug=True)
