@@ -62,7 +62,7 @@ def load_user():
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    if g.user.is_authenticated:
+    if g.user and g.user.is_authenticated:
         return redirect(url_for('add_network'))
     form = LoginForm(request.form)
     rform = RegisterForm(request.form)
