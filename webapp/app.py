@@ -1,3 +1,5 @@
+import json
+import os
 import subprocess
 
 from flask import Flask, render_template, request, url_for, redirect, Response
@@ -14,6 +16,7 @@ from functools import wraps
 import uuid
 
 import conf
+import lounge
 
 app = Flask(__name__)
 app.session_interface = RedisSessionInterface()
@@ -85,17 +88,31 @@ def add_network():
         hostname = request.form.get('hostname')
         port = request.form.get('port')
         nickname = request.form.get('nick')
+        realname = request.form.get('realname')
 
         user = g.user
 
         network = Network(
             name=name, nickname=nickname, hostname=hostname,
-            port=port, realname='', username='',
+            port=port, realname=realname, username='',
             password='', usermode='0', ssl=False,
             ssl_verify='CERT_NONE', user_id=user.id
         )
         db.add(network)
         db.commit()
+        channels = []
+        data = {
+            'name': network.name,
+            'host': conf.IRCB_HOST,
+            'port': conf.IRCB_PORT,
+            'password': network.access_token,
+            'nick': network.nickname,
+            'username': g.user.username,
+            'realname': network.realname,
+            'join': ','.join(channels)
+        }
+        lounge.add_network(data, session)
+
         return 'Done creating network'
     return render_template('network.html', form=form)
 
@@ -111,8 +128,8 @@ def register():
         user = User(username=username, email=email, password=password)
         db.add(user)
         db.commit()
-
-        subprocess.call([conf.LOUNGE_BINARY, user.username, password])
+        subprocess.check_output(
+            [conf.LOUNGE_BINARY, 'add', user.username, password])
 
         if user and user.authenticate(password):
             login_user(user)
