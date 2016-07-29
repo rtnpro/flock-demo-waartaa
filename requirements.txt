@@ -22,7 +22,7 @@ idna==2.1
 infinity==1.4
 intervals==0.8.0
 irc3==0.8.3
--e git+git@github.com:waartaa/ircb.git@643d279da9cc323c989e71fa8c80a902d260dfe3#egg=ircb
+-e git+git@github.com:waartaa/ircb.git@83af645c6fff8bbef039d734a0509ac230017d3e#egg=ircb
 itsdangerous==0.24
 Jinja2==2.8
 Mako==1.0.4
