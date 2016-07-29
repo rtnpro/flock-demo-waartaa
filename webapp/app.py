@@ -83,7 +83,7 @@ def index():
 @app.route('/list-network', methods=['GET', 'POST'])
 @login_required
 def list_network():
-    networks = db.query(Network).all()
+    networks = db.query(Network).filter(Network.user_id == g.user.id).all()
     payload = []
     for network in networks:
         channels = db.query(Channel).filter(
