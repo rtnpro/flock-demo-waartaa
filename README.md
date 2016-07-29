@@ -4,7 +4,21 @@
 
 - python 3.5
 - node
+- nginx
 
+
+## System configuration
+
+### nginx
+```
+sudo cp nginx/demo.waartaa.com.conf /etc/nginx/conf.d/
+sudo service nginx restart
+```
+
+### hosts
+
+Edit ``/etc/hosts`` to point ``demo.waartaa.com``, ``chat.waartaa.com`` to
+``127.0.0.1``
 
 ## Install
 
