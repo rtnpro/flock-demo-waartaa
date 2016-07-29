@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Waartaa</title>
+    <link rel="stylesheet" type="text/css" href="static/css/style.css">
+  </head>
+  <body>
+    <!-- Mixins-->
+    <!-- Pen Title-->
+    <div class="pen-title">
+      <h1>Waartaa</h1>
+      <img class="logo" src="static/images/logo.png">
+    </div>
+    <div class="container">
+      <div class="card"></div>
+      <div class="card">
+        <h1 class="title">Network List</h1>
+        <div style="margin-left: 60px">
+        {% for elem in payload %}
+        <h2>{{ elem.network }}</h2>
+        <ul style="list-style-type: none;padding:0;">
+        {% for channel in elem.channels %}
+          <li>
+            <a style="cursor: pointer;" href="/network/{{elem.network}}/channel/{{ channel }}">{{ channel }}</a>
+          </li>
+        {% endfor %}
+        {% endfor %}
+        </div>
+        <div class="button-container">
+          <a href="/add-network"><button>Add Network</button></a>
+        </div>
+      </div>
+    </div>
+    <!-- Portfolio--><a id="portfolio" href="http://andytran.me/" title="View my portfolio!"><i class="fa fa-link"></i></a>
+    <!-- CodePen--><a id="codepen" href="http://codepen.io/andytran/" title="Follow me!"><i class="fa fa-codepen"></i></a>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="static/js/scripts.js"></script>
+  </body>
+</html>

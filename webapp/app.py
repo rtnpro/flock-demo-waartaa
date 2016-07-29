@@ -7,6 +7,7 @@ from flask import session, g
 
 from ircb.models.user import User
 from ircb.models.network import Network
+from ircb.models.channel import Channel
 from ircb.models.lib import get_session
 
 from forms import LoginForm, NetworkForm, RegisterForm
@@ -75,8 +76,27 @@ def index():
         user = db.query(User).filter(User.username == username).first()
         if user and user.authenticate(password):
             login_user(user)
-            return redirect(url_for('add_network'))
+            return redirect(url_for('list_network'))
     return render_template('index.html', form=form, rform=rform)
+
+
+@app.route('/list-network', methods=['GET', 'POST'])
+@login_required
+def list_network():
+    networks = db.query(Network).all()
+    payload = []
+    for network in networks:
+        channels = db.query(Channel).filter(
+            Channel.network_id == network.id).all()
+        channel_names = [c.name for c in channels]
+        if channel_names:
+            payload.append({
+                'network': network.name,
+                'channels': channel_names
+            })
+
+    print(payload)
+    return render_template('network_list.html', payload=payload)
 
 
 @app.route('/add-network', methods=['GET', 'POST'])
@@ -113,7 +133,7 @@ def add_network():
         }
         lounge.add_network(data, session)
 
-        return 'Done creating network'
+        return redirect(url_for('list_network'))
     return render_template('network.html', form=form)
 
 
