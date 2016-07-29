@@ -51,5 +51,6 @@ python webapp/app.py
 ### chat application
 ```
 ./lounge/index.js add admin
+cp config.js ~/.lounge/config.js
 ./lounge/index.js
 ```
