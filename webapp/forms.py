@@ -12,6 +12,7 @@ class NetworkForm(Form):
     port = StringField('Port', [validators.DataRequired()])
     network = StringField('Network Name', [validators.DataRequired()])
     realname = StringField('Real Name')
+    channels = StringField('Channels')
 
 
 class RegisterForm(Form):

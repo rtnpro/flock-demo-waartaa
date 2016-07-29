@@ -125,6 +125,7 @@ def add_network():
         port = request.form.get('port')
         nickname = request.form.get('nick')
         realname = request.form.get('realname')
+        channels = request.form.get('channels')
 
         user = g.user
 
@@ -136,7 +137,6 @@ def add_network():
         )
         db.add(network)
         db.commit()
-        channels = []
         data = {
             'name': network.name,
             'host': conf.IRCB_HOST,
@@ -145,7 +145,7 @@ def add_network():
             'nick': network.nickname,
             'username': g.user.username,
             'realname': network.realname,
-            'join': ','.join(channels)
+            'join': channels
         }
         lounge.add_network(data, session)
 
