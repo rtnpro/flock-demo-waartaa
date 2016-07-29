@@ -21,7 +21,7 @@
         <ul style="list-style-type: none;padding:0;">
         {% for channel in elem.channels %}
           <li>
-            <a style="cursor: pointer;" href="/network/{{elem.network}}/channel/{{ channel }}">{{ channel }}</a>
+            <a style="cursor: pointer;" href="/network/{{elem.network}}/channel/{{ channel[1:] }}">{{ channel }}</a>
           </li>
         {% endfor %}
         {% endfor %}

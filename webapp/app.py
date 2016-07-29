@@ -99,6 +99,22 @@ def list_network():
     return render_template('network_list.html', payload=payload)
 
 
+@app.route('/network/<network>/channel/<channel>', methods=['GET'])
+@login_required
+def channel_details(network, channel):
+    network = db.query(Network).filter(
+        Network.user_id == g.user.id,
+        Network.name == network).one()
+    channel = db.query(Channel).filter(
+        Channel.name == '#' + channel,
+        Channel.network_id == network.id
+    ).one()
+    return render_template('channel_details.html', payload={
+        'network': network,
+        'channel': channel
+    })
+
+
 @app.route('/add-network', methods=['GET', 'POST'])
 @login_required
 def add_network():
